@@ -1,0 +1,8 @@
+pandas
+numpy
+tensorflow==2.5.0
+transformers
+tf2onnx
+onnxruntime
+sklearn
+datasketch
