@@ -21,7 +21,7 @@ internal class DataCollectionDialog : IDialog, IDisposable
 
     private ScrollMenu scrollMenu = new()
     {
-        HorizontalAlignment = HorizontalAlignment.Left,
+        //HorizontalAlignment = HorizontalAlignment.Left,
         EraseAfterClose = true,
     };
     private readonly ProgressBar progressBar = new()
@@ -173,7 +173,10 @@ internal class DataCollectionDialog : IDialog, IDisposable
 
         stopwatch.Stop();
 
-        Console.WriteLine($"Finished in: {stopwatch.Elapsed.Seconds} seconds. Press any key to continue.");
+        Console.WriteLine(string.Empty);
+        Console.WriteLine($"Finished in: {stopwatch.Elapsed.TotalSeconds} seconds.");
+        Console.WriteLine(string.Empty);
+        Console.WriteLine("Press any key to continue.");
 
         Console.ReadKey();
 

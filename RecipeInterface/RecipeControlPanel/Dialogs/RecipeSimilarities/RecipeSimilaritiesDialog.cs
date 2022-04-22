@@ -15,7 +15,7 @@ internal class RecipeSimilaritiesDialog : IDialog
     };
     private IDialog? dialog;
 
-    internal RecipeSimilaritiesDialog(RecipeContext db)
+    internal RecipeSimilaritiesDialog(RecipeContext db, IDialog next)
     {
         scrollMenu = new()
         {
@@ -29,7 +29,7 @@ internal class RecipeSimilaritiesDialog : IDialog
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 16: Output recipe ingredient vectors to .csv.", Command = new ActionCommand(() => SetDialog(recipeLLVMOutputDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 18: Import top 10 similar recipes to database.", Command = new ActionCommand(() => SetDialog(recipeSimilarityImporterDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 19: Import top 10 similar recipes (with substitutes accounted for) to database.", Command = new ActionCommand(() => SetDialog(recipeSimilarityImporterWSubsDialog)) });
-        scrollMenu.AddItem(new LabelMenuItem() { Text = "Return", Command = new ActionCommand(() => SetDialog(null)) });
+        scrollMenu.AddItem(new LabelMenuItem() { Text = "Return", Command = new ActionCommand(() => SetDialog(next)) });
     }
 
     private void SetDialog(IDialog? dialog)

@@ -1,0 +1,6 @@
+C:\Users\MatthewOrmson\source\repos\elslush\Capstone\RecipeInterface\DatabaseFunctions\bin\Debug\DatabaseFunctions.dll
+C:\Users\MatthewOrmson\source\repos\elslush\Capstone\RecipeInterface\DatabaseFunctions\bin\Debug\DatabaseFunctions.pdb
+C:\Users\MatthewOrmson\source\repos\elslush\Capstone\RecipeInterface\DatabaseFunctions\obj\Debug\DatabaseFunctions.csproj.AssemblyReference.cache
+C:\Users\MatthewOrmson\source\repos\elslush\Capstone\RecipeInterface\DatabaseFunctions\obj\Debug\DatabaseFunctions.csproj.CoreCompileInputs.cache
+C:\Users\MatthewOrmson\source\repos\elslush\Capstone\RecipeInterface\DatabaseFunctions\obj\Debug\DatabaseFunctions.dll
+C:\Users\MatthewOrmson\source\repos\elslush\Capstone\RecipeInterface\DatabaseFunctions\obj\Debug\DatabaseFunctions.pdb

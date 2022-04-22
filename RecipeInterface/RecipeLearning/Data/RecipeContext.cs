@@ -40,6 +40,8 @@ public class RecipeContext : DbContext
     // Recipe Similarity
     public DbSet<RecipeSimilarity> RecipeSimilarities { get; set; } = default!;
 
+    public DbSet<CombinedIngredient> CombinedIngredients { get; set; } = default!;
+
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder
@@ -86,7 +88,7 @@ public class RecipeContext : DbContext
         modelBuilder.Entity<Instruction>(
             eb =>
             {
-                eb.HasKey(nameof(Instruction.RecipeID), nameof(Instruction.Sequence));
+                eb.HasKey(nameof(Instruction.InstructionId));
                 eb.ToTable(nameof(Instructions), schema: "DataCollection");
                 eb.Property(b => b.RecipeID).HasColumnType("uniqueidentifier").HasConversion<Guid>();
                 eb.Property(b => b.Text).HasColumnType("nvarchar(2000)");
@@ -240,8 +242,9 @@ public class RecipeContext : DbContext
         modelBuilder.Entity<CombinedIngredient>(
             eb =>
             {
-                eb.HasNoKey();
-                eb.ToView("[RecipeSimilarity].[CombinedIngredients]");
+                eb.HasKey(nameof(CombinedIngredient.IngredientID));
+                //eb.HasNoKey();
+                eb.ToView(nameof(CombinedIngredients), schema: "RecipeSimilarity");
             });
     }
 

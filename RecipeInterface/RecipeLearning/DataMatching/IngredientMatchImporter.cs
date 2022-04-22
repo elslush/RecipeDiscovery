@@ -11,7 +11,7 @@ namespace RecipeLearning.DataMatching;
 public class IngredientMatchImporter : Importer<MatchedIngredient>
 {
     private static readonly FileRetriever fileRetriever = new("113EPgSJLEcrb9gi7P1yp4NvvdvKYIIjW", "ingredient_matches_output.zip", "ingredient_matches_output.csv");
-    private static readonly SqlBulkCopyColumnMapping[] mappings = { new("IngredientID", "IngredientID"), new("NutritionID", "NutritionID"), new("Probability", "Probability") };
+    private static readonly SqlBulkCopyColumnMapping[] mappings = { new(0, "IngredientID"), new(3, "NutritionID"), new(4, "Probability") };
     private readonly ILogger logger;
 
     public IngredientMatchImporter(DbContext db, ILogger logger) : base(db, fileRetriever, mappings)

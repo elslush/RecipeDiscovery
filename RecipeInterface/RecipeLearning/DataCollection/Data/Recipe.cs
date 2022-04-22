@@ -1,4 +1,6 @@
-﻿namespace RecipeLearning.DataCollection.Data;
+﻿using RecipeLearning.RecipeSimilarities.Data;
+
+namespace RecipeLearning.DataCollection.Data;
 
 public class Recipe
 {
@@ -11,4 +13,6 @@ public class Recipe
 	public ICollection<Ingredient> Ingredients { get; set; } = default!;
 
 	public ICollection<Instruction> Instructions { get; set; } = default!;
+
+	public ICollection<CombinedIngredient> CombinedIngredients { get; set; } = default!;
 }

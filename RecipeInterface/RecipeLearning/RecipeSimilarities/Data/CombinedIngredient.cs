@@ -1,6 +1,6 @@
 ﻿namespace RecipeLearning.RecipeSimilarities.Data;
 
-internal class CombinedIngredient
+public class CombinedIngredient
 {
 	public int IngredientID { get; set; }
 
@@ -10,7 +10,7 @@ internal class CombinedIngredient
 
 	public string? Name { get; set; }
 
-	public float Quantity { get; set; }
+	public double Quantity { get; set; }
 
 	public string? Unit { get; set; }
 

@@ -14,7 +14,7 @@ internal class DataMatchingDialog : IDialog
     };
     private IDialog? dialog;
 
-    internal DataMatchingDialog(RecipeContext db)
+    internal DataMatchingDialog(RecipeContext db, IDialog returnDialog)
     {
         scrollMenu = new()
         {
@@ -23,8 +23,8 @@ internal class DataMatchingDialog : IDialog
         };
         var ingredientMatchDialog = new IngredientMatchDialog(db, this);
 
-        scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 15: Output tokenized training data to .csv.", Command = new ActionCommand(() => SetDialog(ingredientMatchDialog)) });
-        scrollMenu.AddItem(new LabelMenuItem() { Text = "Return", Command = new ActionCommand(() => SetDialog(null)) });
+        scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 15: Import Matched Ingredients.", Command = new ActionCommand(() => SetDialog(ingredientMatchDialog)) });
+        scrollMenu.AddItem(new LabelMenuItem() { Text = "Return", Command = new ActionCommand(() => SetDialog(returnDialog)) });
     }
 
     private void SetDialog(IDialog? dialog)

@@ -29,15 +29,17 @@ public class OutputRecipeLLVM
         IReadOnlyDictionary<int, int> indexToNutrition = nutritionToIndex.ToDictionary(x => x.Value, x => x.Key);
 
         var totalCount = await db.Recipes.CountAsync(token);
+
         int i = 0;
         var recipes = db.Recipes
-            .Include(recipe => recipe.Ingredients)
+            .Include(recipe => recipe.CombinedIngredients)
             .AsNoTracking()
+            .Select(recipe => new KeyValuePair<Guid, int[]>(recipe.RecipeID, recipe.CombinedIngredients.Select(ingredient => ingredient.NutritionID).ToArray()))
             .AsEnumerable()
             .Select(recipe =>
             {
                 OnPercentCompleted?.Invoke(this, (double)i++ / totalCount);
-                return new KeyValuePair<Guid, int[]>(recipe.RecipeID, recipe.Ingredients.Select(ingredient => 0/*(int)ingredient.NutritionID!*/).ToArray());
+                return recipe;
             });
 
         JsonSerializerOptions options = new()

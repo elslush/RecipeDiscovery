@@ -2,27 +2,27 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RecipeLearning.DataParsing.Data;
-using RecipeLearning.Import;
 using RecipeLearning.Import.Streams;
+using Sylvan.Data.Csv;
 using System.Data.SqlClient;
 
 namespace RecipeLearning.DataParsing.Inputs;
 
-public class ParsedSubstitutionImporter : Importer<ParsedSubstitution>
+public class ParsedSubstitutionImporter : ParsedImporter<ParsedSubstitution>
 {
-    private static readonly FileRetriever fileRetriever = new("1F2MzXDZXSyVY6lHekM4Co8OkJM7z3bR3", "ingredient_predictions.zip", "ingredient_predictions.csv");
+    private static readonly FileRetriever fileRetriever = new("1Gf0y8nQ_DYvZZYuHWJYZ3EeGhiPxKDvw", "substitution_predictions.zip", "substitution_predictions.csv");
     private static readonly SqlBulkCopyColumnMapping[] mappings = {
-        new(0, "SubstitutionID"),
-        new(1, "Substitution1Name"),
-        new(2, "Substitution1Quantity"),
-        new(3, "Substitution1Unit"),
-        new(4, "Substitution1Comment"),
-        new(5, "Substitution1Other"),
-        new(6, "Substitution2Name"),
-        new(7, "Substitution2Quantity"),
-        new(8, "Substitution2Unit"),
-        new(9, "Substitution2Comment"),
-        new(10, "Substitution2Other"),
+        new("SubstitutionID", "SubstitutionID"),
+        new("Substitution1Name", "Substitution1Name"),
+        new("Substitution1Quantity", "Substitution1Quantity"),
+        new("Substitution1Unit", "Substitution1Unit"),
+        new("Substitution1Comment", "Substitution1Comment"),
+        new("Substitution1Other", "Substitution1Other"),
+        new("Substitution2Name", "Substitution2Name"),
+        new("Substitution2Quantity", "Substitution2Quantity"),
+        new("Substitution2Unit", "Substitution2Unit"),
+        new("Substitution2Comment", "Substitution2Comment"),
+        new("Substitution2Other", "Substitution2Other"),
     };
 
     private readonly ILogger logger;
@@ -48,5 +48,35 @@ public class ParsedSubstitutionImporter : Importer<ParsedSubstitution>
     private void DownloadProgressChanged(object? sender, IDownloadProgress progress)
     {
         logger.LogInformation("Read {BytesDownloaded} from Google Drive Storage so far...", progress.BytesDownloaded);
+    }
+
+    protected override IEnumerable<ParsedSubstitution> ParseReader(CsvDataReader csvDataReader)
+    {
+        while (csvDataReader.Read())
+        {
+            ParsedSubstitution parsedIngredient = new()
+            {
+                SubstitutionID = csvDataReader.GetInt32(0),
+                Substitution1Name = csvDataReader.GetString(1),
+                Substitution1Unit = csvDataReader.GetString(3),
+                Substitution1Comment = csvDataReader.GetString(4),
+                Substitution1Other = csvDataReader.GetString(6),
+                Substitution2Name = csvDataReader.GetString(7),
+                Substitution2Unit = csvDataReader.GetString(9),
+                Substitution2Comment = csvDataReader.GetString(10),
+                Substitution2Other = csvDataReader.GetString(11)
+            };
+
+            var quantity = csvDataReader.GetString(2);
+            decimal? quantityDouble;
+            if (!quantity.Equals(string.Empty) && (quantityDouble = quantity.ParseNumber()) is not null)
+                parsedIngredient.Substitution1Quantity = (float)quantityDouble;
+
+            quantity = csvDataReader.GetString(8);
+            if (!quantity.Equals(string.Empty) && (quantityDouble = quantity.ParseNumber()) is not null)
+                parsedIngredient.Substitution2Quantity = (float)quantityDouble;
+
+            yield return parsedIngredient;
+        }
     }
 }

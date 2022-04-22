@@ -27,13 +27,13 @@ internal class ActionDialog : IDialog
             EraseAfterClose = true,
         };
         var dataCollectionDialog = new DataCollectionDialog(db, this);
-        var dataMatchingDialog = new DataMatchingDialog(db);
-        var dataParsingDialog = new DataParsingDialog(db);
-        var recipeSimilaritiesDialog = new RecipeSimilaritiesDialog(db);
+        var dataMatchingDialog = new DataMatchingDialog(db, this);
+        var dataParsingDialog = new DataParsingDialog(db, this);
+        var recipeSimilaritiesDialog = new RecipeSimilaritiesDialog(db, this);
 
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Data Collection", Command = new ActionCommand(() => SetDialog(dataCollectionDialog)) });
-        scrollMenu.AddItem(new LabelMenuItem() { Text = "Data Matching", Command = new ActionCommand(() => SetDialog(dataMatchingDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Data Parsing", Command = new ActionCommand(() => SetDialog(dataParsingDialog)) });
+        scrollMenu.AddItem(new LabelMenuItem() { Text = "Data Matching", Command = new ActionCommand(() => SetDialog(dataMatchingDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Recipe Similarities", Command = new ActionCommand(() => SetDialog(recipeSimilaritiesDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Exit", Command = new ActionCommand(() => SetDialog(null)) });
     }

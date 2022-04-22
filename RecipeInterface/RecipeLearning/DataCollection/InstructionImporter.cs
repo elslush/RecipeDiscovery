@@ -11,9 +11,10 @@ namespace RecipeLearning.DataCollection;
 public class InstructionImporter : Importer<Instruction>
 {
     private static readonly FileRetriever fileRetriever = new("1de86cjX-FCxhyuJGkXWCnz7S14jRSVg5", "instructions.zip", "instructions.csv");
+    private static readonly SqlBulkCopyColumnMapping[] mappings = { new("RecipeID", "RecipeID"), new("Text", "Text"), new("Sequence", "Sequence") };
     private readonly ILogger logger;
 
-    public InstructionImporter(DbContext db, ILogger logger) : base(db, fileRetriever)
+    public InstructionImporter(DbContext db, ILogger logger) : base(db, fileRetriever, mappings)
     {
         this.logger = logger;
         OnSqlRowsCopied += SqlRowsCopied;
