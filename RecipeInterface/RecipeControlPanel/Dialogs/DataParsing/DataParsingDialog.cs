@@ -30,8 +30,8 @@ internal class DataParsingDialog : IDialog
 
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 8: Output tokenized training data to .csv.", Command = new ActionCommand(() => SetDialog(outputTrainingDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 9: Output ingredients, nutrition, and substitutions to .csv to evaluate.", Command = new ActionCommand(() => SetDialog(outputEvaluatesDialog)) });
-        scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 13: Import ingredient predictions into database.", Command = new ActionCommand(() => SetDialog(importIngredientPredictionsDialog)) });
-        scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 14: Import substitution predictions into database.", Command = new ActionCommand(() => SetDialog(importParsedSubstitutionDialog)) });
+        scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 14: Import ingredient predictions into database.", Command = new ActionCommand(() => SetDialog(importIngredientPredictionsDialog)) });
+        scrollMenu.AddItem(new LabelMenuItem() { Text = "Step 15: Import substitution predictions into database.", Command = new ActionCommand(() => SetDialog(importParsedSubstitutionDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Step (optional): Save training data tokens to database.", Command = new ActionCommand(() => SetDialog(snapshotTokenizerDialog)) });
         scrollMenu.AddItem(new LabelMenuItem() { Text = "Return", Command = new ActionCommand(() => SetDialog(next)) });
     }
